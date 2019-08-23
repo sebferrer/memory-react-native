@@ -6,10 +6,12 @@ export interface GridProps {
     nbX: number;
     nbY: number;
     array?: Array<any>;
+    _currentCard?: string;
 }
 
 interface State {
     array: Array<any>;
+    _currentCard: string;
 }
 
 export default class Grid extends Component<GridProps, State> {
@@ -17,19 +19,29 @@ export default class Grid extends Component<GridProps, State> {
     constructor(props) {
         super(props);
 
-        this.state = { array: new Array<any>() };
+        this.state = { array: new Array<any>(), _currentCard: null };
 
         for(let i = 0; i < this.props.nbY; i++) {
             this.state.array.push({id: i});
         }
     }
 
+    get currentCard() {
+        return this.state._currentCard;
+    }
+
+    set currentCard(value: string) {
+        this.setState({
+            _currentCard: value
+          });
+    }
+
     render() {
         return (
             <View style={styles.grid}>
-                {this.state.array.map((prop, key) => {;
+                {this.state.array.map((gridLine, key) => {;
                     return (
-                        <GridLine key={prop.id} nb={this.props.nbX} />
+                        <GridLine key={gridLine.id} id={gridLine.id} nb={this.props.nbX} _grid={this} />
                     );
                 })} 
             </View>
