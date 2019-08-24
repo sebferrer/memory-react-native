@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, Image, ImageSourcePropType, TouchableHighlight } from 'react-native';
+import { AppRegistry, Image, ImageSourcePropType, TouchableHighlight, View, StyleSheet, Dimensions } from 'react-native';
 import Grid from './Grid';
 
 export interface CardProps {
@@ -47,10 +47,14 @@ export default class Card extends Component<CardProps, State> {
     set discovered(value: any) { this.setState({ _discovered: value }); }
 
     render() {
+        let width = Dimensions.get('window').width;
+        let cardWidth = width / this.grid.nbX;
         return (
-            <TouchableHighlight onPress={() => this.handlePress()}>
-                <Image source={this.imgSource} style={{width: 50, height: 50}}/>
-            </TouchableHighlight>
+            <View style={styles.card}>
+                <TouchableHighlight onPress={() => this.handlePress()}>
+                    <Image source={this.imgSource} style={{width: cardWidth, height: cardWidth}}/>
+                </TouchableHighlight>
+            </View>
         );
     }
 
@@ -105,5 +109,12 @@ export default class Card extends Component<CardProps, State> {
        // console.log('Current picked card: ' + this.grid.currentCard.value);
     }
 }
+
+const styles = StyleSheet.create({
+    card: {
+        display: 'flex',
+    },
+});
+
 
 AppRegistry.registerComponent('Memory', () => Card);

@@ -4,7 +4,7 @@ import GridLine from './GridLine';
 import Card from './Card';
 
 export interface GridProps {
-    nbX: number;
+    _nbX: number;
     nbY: number;
     _array?: Array<any>;
     _chunks?: Array<Array<string>>;
@@ -12,6 +12,7 @@ export interface GridProps {
 }
 
 interface State {
+    _nbX: number;
     _array: Array<any>;
     _chunks: Array<Array<string>>;
     _currentCard: Card;
@@ -22,7 +23,7 @@ export default class Grid extends Component<GridProps, State> {
     constructor(props) {
         super(props);
 
-        if(props.nbX * props.nbY % 2 != 0) {
+        if(props._nbX * props.nbY % 2 != 0) {
             throw "Number of cards must be even";
         }
 
@@ -32,7 +33,7 @@ export default class Grid extends Component<GridProps, State> {
         cardValues = shuffle(cardValues);
 
         let valuesChunks = new Array<Array<string>>();
-        let chunk = this.props.nbX;
+        let chunk = this.props._nbX;
         for (let i = 0, j = cardValues.length; i < j; i += chunk) {
             valuesChunks.push(cardValues.slice(i ,i + chunk));
         }
@@ -40,6 +41,7 @@ export default class Grid extends Component<GridProps, State> {
         this.state = {
             _array: new Array<any>(),
             _currentCard: null,
+            _nbX: props._nbX,
             _chunks: valuesChunks
         };
 
@@ -50,6 +52,8 @@ export default class Grid extends Component<GridProps, State> {
 
     get currentCard() { return this.state._currentCard; }
     set currentCard(value: Card) { this.setState({ _currentCard: value }); }
+
+    get nbX() { return this.state._nbX; }
 
     get chunks() { return this.state._chunks; }
 
@@ -63,7 +67,7 @@ export default class Grid extends Component<GridProps, State> {
                         <GridLine
                              key={gridLine.id}
                             _id={gridLine.id}
-                            nb={this.props.nbX}
+                            nb={this.props._nbX}
                             _grid={this}
                             _values={this.chunks[key]}
                         />
