@@ -5,7 +5,7 @@ import Grid from './components/Grid';
 export default function App() {
     return (
         <View style={styles.container}>
-            <Grid key={"grid"} nbX={5} nbY={5} />
+            <Grid key={"grid"} nbX={5} nbY={6} />
         </View>
     );
 }

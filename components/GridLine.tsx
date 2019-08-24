@@ -4,16 +4,18 @@ import Card from './Card';
 import Grid from './Grid';
 
 export interface GridLineProps {
-    id: number;
+    _id: number;
     _grid: Grid;
     nb: number;
-    array?: Array<any>;
+    _array?: Array<any>;
+    _values: Array<string>;
 }
 
 interface State {
-    id: number;
+    _id: number;
     _grid: Grid;
-    array: Array<any>;
+    _array: Array<any>;
+    _values: Array<string>;
 }
 
 export default class GridLine extends Component<GridLineProps, State> {
@@ -21,23 +23,37 @@ export default class GridLine extends Component<GridLineProps, State> {
     constructor(props: GridLineProps) {
         super(props);
         
-        this.state = { id: props.id, _grid: props._grid, array: new Array<any>() };
+        this.state = {
+            _id: props._id,
+            _grid: props._grid,
+            _array: new Array<any>(),
+            _values: props._values
+        };
 
         for(let i = 0; i < props.nb; i++) {
-            this.state.array.push({id: i});
+            this.state._array.push({id: i});
         }
     }
 
-    get grid() {
-        return this.state._grid;
-    }
+    get id() { return this.state._id; }
+
+    get grid() { return this.state._grid; }
+
+    get array() { return this.state._array; }
+
+    get values() { return this.state._values; }
 
     render() {
         return (
             <View style={styles.gridLine}>
-                {this.state.array.map((card) => {
+                {this.array.map((card, key) => {
                     return (
-                        <Card key={this.state.id+"-"+card.id} id={this.state.id+"-"+card.id} _grid={this.state._grid}/>
+                        <Card
+                            key={this.id+"-"+card.id}
+                            _id={this.id+"-"+card.id}
+                            _grid={this.grid}
+                            _value={this.values[key]}
+                        />
                     );
                 })} 
              </View>
