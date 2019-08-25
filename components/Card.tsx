@@ -3,19 +3,19 @@ import { AppRegistry, Dimensions, Image, StyleSheet, TouchableHighlight, View } 
 import Grid from './Grid';
 
 export interface CardProps {
-	_id: string;
-	_grid: Grid;
-	_value: number;
-	_imgSource?: any;
-	_discovered?: boolean;
+	id: string;
+	grid: Grid;
+	value: number;
+	imgSource?: any;
+	discovered?: boolean;
 }
 
 interface State {
-	_id: string;
-	_grid: Grid;
-	_value: number;
-	_imgSource: any;
-	_discovered: boolean;
+	id: string;
+	grid: Grid;
+	value: number;
+	imgSource: any;
+	discovered: boolean;
 }
 
 export default class Card extends Component<CardProps, State> {
@@ -24,27 +24,27 @@ export default class Card extends Component<CardProps, State> {
 		super(props);
 
 		this.state = {
-			_id: props._id,
-			_grid: props._grid,
-			_value: props._value,
-			_imgSource: require('../assets/img/react.png'),
-			_discovered: false
+			id: props.id,
+			grid: props.grid,
+			value: props.value,
+			imgSource: require('../assets/img/react.png'),
+			discovered: false
 		};
 
 		//this.handleClick = this.handleClick.bind(this);
 	}
 
-	get id() { return this.state._id; }
+	get id() { return this.state.id; }
 
-	get value(): number { return this.state._value; }
+	get value(): number { return this.state.value; }
 
-	get grid() { return this.state._grid; }
+	get grid() { return this.state.grid; }
 
-	get imgSource() { return this.state._imgSource; }
-	set imgSource(value: any) { this.setState({ _imgSource: value }); }
+	get imgSource() { return this.state.imgSource; }
+	set imgSource(value: any) { this.setState({ imgSource: value }); }
 
-	get discovered() { return this.state._discovered; }
-	set discovered(value: any) { this.setState({ _discovered: value }); }
+	get discovered() { return this.state.discovered; }
+	set discovered(value: any) { this.setState({ discovered: value }); }
 
 	render() {
 		let width = Dimensions.get('window').width;

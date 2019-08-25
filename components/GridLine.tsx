@@ -4,18 +4,18 @@ import Card from './Card';
 import Grid from './Grid';
 
 export interface GridLineProps {
-    _id: number;
-    _grid: Grid;
+    id: number;
+    grid: Grid;
     nb: number;
-    _array?: Array<any>;
-    _values: Array<number>;
+    array?: Array<any>;
+    values: Array<number>;
 }
 
 interface State {
-    _id: number;
-    _grid: Grid;
-    _array: Array<any>;
-    _values: Array<number>;
+    id: number;
+    grid: Grid;
+    array: Array<any>;
+    values: Array<number>;
 }
 
 export default class GridLine extends Component<GridLineProps, State> {
@@ -24,24 +24,24 @@ export default class GridLine extends Component<GridLineProps, State> {
         super(props);
         
         this.state = {
-            _id: props._id,
-            _grid: props._grid,
-            _array: new Array<any>(),
-            _values: props._values
+            id: props.id,
+            grid: props.grid,
+            array: new Array<any>(),
+            values: props.values
         };
 
         for(let i = 0; i < props.nb; i++) {
-            this.state._array.push({id: i});
+            this.state.array.push({id: i});
         }
     }
 
-    get id() { return this.state._id; }
+    get id() { return this.state.id; }
 
-    get grid() { return this.state._grid; }
+    get grid() { return this.state.grid; }
 
-    get array() { return this.state._array; }
+    get array() { return this.state.array; }
 
-    get values() { return this.state._values; }
+    get values() { return this.state.values; }
 
     render() {
         return (
@@ -50,9 +50,9 @@ export default class GridLine extends Component<GridLineProps, State> {
                     return (
                         <Card
                             key={this.id+"-"+card.id}
-                            _id={this.id+"-"+card.id}
-                            _grid={this.grid}
-                            _value={this.values[key]}
+                            id={this.id+"-"+card.id}
+                            grid={this.grid}
+                            value={this.values[key]}
                         />
                     );
                 })} 
