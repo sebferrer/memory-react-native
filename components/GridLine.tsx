@@ -1,58 +1,38 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, View } from 'react-native';
 import Card from './Card';
-import Grid from './Grid';
+import { GridLineViewModel } from '../src/viewmodel/GridLineViewModel';
 
 export interface GridLineProps {
-    id: number;
-    grid: Grid;
-    nb: number;
-    array?: Array<any>;
-    values: Array<number>;
+    viewModel: GridLineViewModel;
 }
 
 interface State {
-    id: number;
-    grid: Grid;
-    array: Array<any>;
-    values: Array<number>;
+    viewModel: GridLineViewModel;
 }
 
 export default class GridLine extends Component<GridLineProps, State> {
 
     constructor(props: GridLineProps) {
         super(props);
+
+        props.viewModel.component = this;
         
         this.state = {
-            id: props.id,
-            grid: props.grid,
-            array: new Array<any>(),
-            values: props.values
+            viewModel: props.viewModel
         };
-
-        for(let i = 0; i < props.nb; i++) {
-            this.state.array.push({id: i});
-        }
     }
 
-    get id() { return this.state.id; }
-
-    get grid() { return this.state.grid; }
-
-    get array() { return this.state.array; }
-
-    get values() { return this.state.values; }
+    get viewModel() { return this.state.viewModel; }
 
     render() {
         return (
             <View style={styles.gridLine}>
-                {this.array.map((card, key) => {
+                {this.viewModel.cards.map((card, key) => {
                     return (
                         <Card
-                            key={this.id+"-"+card.id}
-                            id={this.id+"-"+card.id}
-                            grid={this.grid}
-                            value={this.values[key]}
+                            key={card.id}
+                            viewModel={card}
                         />
                     );
                 })} 
