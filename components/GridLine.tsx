@@ -8,14 +8,14 @@ export interface GridLineProps {
     _grid: Grid;
     nb: number;
     _array?: Array<any>;
-    _values: Array<string>;
+    _values: Array<number>;
 }
 
 interface State {
     _id: number;
     _grid: Grid;
     _array: Array<any>;
-    _values: Array<string>;
+    _values: Array<number>;
 }
 
 export default class GridLine extends Component<GridLineProps, State> {
