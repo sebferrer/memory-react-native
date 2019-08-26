@@ -16,19 +16,21 @@ export default class GridLine extends Component<GridLineProps, State> {
     constructor(props: GridLineProps) {
         super(props);
 
-        props.viewModel.component = this;
+        props.viewModel.c = this;
         
         this.state = {
             viewModel: props.viewModel
         };
     }
 
-    get viewModel() { return this.state.viewModel; }
+    get vm() { return this.state.viewModel; }
+
+	update() { this.setState({ viewModel: this.vm }) }
 
     render() {
         return (
             <View style={styles.gridLine}>
-                {this.viewModel.cards.map((card, key) => {
+                {this.vm.cards.map((card, key) => {
                     return (
                         <Card
                             key={card.id}

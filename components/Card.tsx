@@ -16,22 +16,24 @@ export default class Card extends Component<CardProps, State> {
 	constructor(props: CardProps) {
         super(props);
 
-        props.viewModel.component = this;
+        props.viewModel.c = this;
 
 		this.state = {
 			viewModel: props.viewModel
 		};
 	}
 
-	get viewModel() { return this.state.viewModel; }
+	get vm() { return this.state.viewModel; }
+
+	update() { this.setState({ viewModel: this.vm }) }
 
 	render() {
 		let width = Dimensions.get('window').width;
-		let cardWidth = width / this.viewModel.grid.nbX;
+		let cardWidth = width / this.vm.grid.nbX;
 		return (
 			<View style={styles.card}>
 				<TouchableHighlight onPress={() => this.handlePress()}>
-					<Image source={this.viewModel.imgSource} style={{ width: cardWidth, height: cardWidth }} />
+					<Image source={this.vm.imgSource} style={{ width: cardWidth, height: cardWidth }} />
 				</TouchableHighlight>
 			</View>
 		);
@@ -41,33 +43,28 @@ export default class Card extends Component<CardProps, State> {
 	// I chosed this method to use the typescript setters, but the best method is to use the setState callback:
 	// https://stackoverflow.com/questions/41278385/setstate-doesnt-update-the-state-immediately/41278440
 	handlePress() {
-        this.viewModel.imgSource = gameState.imgs[this.viewModel.value];
-        this.setState({ viewModel: this.viewModel });
-        
-        // There's .viewModels everywhere, that's ugly.
-        // Need to find a solution about it.
+        this.vm.imgSource = gameState.imgs[this.vm.value - 1];
 
 		if (gameState.currentCard == null) {
-            gameState.currentCard = this.viewModel;
-            this.setState({ viewModel: this.viewModel });
+            gameState.currentCard = this.vm;
 		}
-		else if (!this.viewModel.discovered) {
-			if (gameState.currentCard.value != this.viewModel.value) {
+		else if (!this.vm.discovered) {
+			if (gameState.currentCard.value != this.vm.value) {
                 if(!gameState.currentCard.discovered) {
                     gameState.currentCard.imgSource = gameState.defaultImg;
-                    gameState.currentCard.component.setState({ viewModel: gameState.currentCard });
+                    gameState.currentCard.c.update();
                 }
-                gameState.currentCard = this.viewModel;
-                this.setState({ viewModel: this.viewModel });
+                gameState.currentCard = this.vm;
 			}
-			else if (gameState.currentCard.id != this.viewModel.id) {
+			else if (gameState.currentCard.id != this.vm.id) {
                 gameState.currentCard.discovered = true;
-				this.viewModel.discovered = true;
-                gameState.currentCard.component.setState({ viewModel: gameState.currentCard });
-                this.setState({ viewModel: this.viewModel });
+				this.vm.discovered = true;
+                gameState.currentCard.c.update();
 			}
 		}
-        // console.log('Current picked card: ' + gameState.currentCard.id);
+		this.update();
+
+        // console.log('Current picked card: ' + gameState.currentCard.id + ' - ' + gameState.currentCard.value);
         
         // NOTE: We don't have to write all of the setState of this function if we do this one:
         // this.viewModel.grid.component.setState({ viewModel: this.viewModel.grid });

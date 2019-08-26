@@ -16,19 +16,21 @@ export default class Grid extends Component<GridProps, State> {
 	constructor(props) {
 		super(props);
 
-		props.viewModel.component = this;
+		props.viewModel.c = this;
 
 		this.state = {
 			viewModel: props.viewModel
 		};
 	}
 
-	get viewModel() { return this.state.viewModel; }
+	get vm() { return this.state.viewModel; }
+
+	update() { this.setState({ viewModel: this.vm }) }
 
 	render() {
 		return (
 			<View style={styles.grid}>
-				{this.viewModel.gridLines.map((gridLine, key) => {
+				{this.vm.gridLines.map((gridLine, key) => {
 					;
 					return (
 						<GridLine

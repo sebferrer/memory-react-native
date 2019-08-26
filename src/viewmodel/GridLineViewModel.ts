@@ -5,8 +5,8 @@ import GridLine from "../../components/GridLine";
 export class GridLineViewModel {
 
     public _component: GridLine;
-    public get component(): GridLine { return this._component; }
-    public set component(component) { this._component = component; }
+    public get c(): GridLine { return this._component; }
+    public set c(component) { this._component = component; }
 
     public _id: number;
     public get id(): number { return this._id; }

@@ -22,7 +22,6 @@ export class GameState {
 	// Don't have the choice but to load all of the images in advance:
 	// https://stackoverflow.com/questions/30854232/react-native-image-require-module-using-dynamic-names
 	constructor(grid: GridViewModel) {
-		console.log("gamestate");
         this._grid = grid;
         this._score = 0;
         this._imgs = [
@@ -40,7 +39,7 @@ export class GameState {
 			require("../assets/img/12.png"),
 			require("../assets/img/13.png"),
 			require("../assets/img/14.png"),
-			require("../assets/img/15.png"),
+			require("../assets/img/15.png")
 		];
 		this._defaultImg = require('../assets/img/react.png');
 		this._currentCard = null;

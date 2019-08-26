@@ -6,8 +6,8 @@ import Grid from "../../components/Grid";
 export class GridViewModel {
 
     public _component: Grid;
-    public get component(): Grid { return this._component; }
-    public set component(component) { this._component = component; }
+    public get c(): Grid { return this._component; }
+    public set c(component) { this._component = component; }
 
     public _id: string;
     public get id(): string { return this._id; }

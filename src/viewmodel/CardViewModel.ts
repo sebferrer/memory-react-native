@@ -4,8 +4,8 @@ import Card from "../../components/Card";
 export class CardViewModel {
 
     public _component: Card;
-    public get component(): Card { return this._component; }
-    public set component(component) { this._component = component; }
+    public get c(): Card { return this._component; }
+    public set c(component) { this._component = component; }
 
     public _id: number;
     public get id(): number { return this._id; }
