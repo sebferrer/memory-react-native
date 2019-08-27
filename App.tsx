@@ -1,16 +1,15 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { GameState } from './src/gameState';
 import Grid from './components/Grid';
-import { GridViewModel } from './src/viewmodel/GridViewModel';
+import Activity from './Activity';
 
-export const gameState = new GameState(new GridViewModel("grid", 5, 6));
+export const app = new Activity();
 
 export default function App() {
     
     return (
         <View style={styles.container}>
-            <Grid key={"grid"} viewModel={gameState.grid} />
+            <Grid key={"grid"} viewModel={app.grid} />
         </View>
     );
 }

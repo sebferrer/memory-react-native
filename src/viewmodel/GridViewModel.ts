@@ -2,15 +2,19 @@ import { CardViewModel } from "./CardViewModel";
 import * as shuffle from 'shuffle-array';
 import { GridLineViewModel } from "./GridLineViewModel";
 import Grid from "../../components/Grid";
+import Activity from "../../Activity";
 
 export class GridViewModel {
 
     public _component: Grid;
     public get c(): Grid { return this._component; }
-    public set c(component) { this._component = component; }
+    public set c(component: Grid) { this._component = component; }
 
     public _id: string;
     public get id(): string { return this._id; }
+
+    public _app: Activity;
+    public get app(): Activity { return this._app }
 
     public _nbX: number;
     public get nbX() { return this._nbX; }
@@ -21,12 +25,13 @@ export class GridViewModel {
     public _gridLines: GridLineViewModel[];
     public get gridLines() { return this._gridLines; }
 
-	constructor(id: string, nbX: number, nbY: number) {
+	constructor(id: string, nbX: number, nbY: number, app: Activity) {
         if (nbX * nbY % 2 != 0) {
 			throw "Number of cards must be even";
 		}
 
         this._id = id;
+        this._app = app;
         this._nbX = nbX;
         this._nbY = nbY;
 
@@ -47,7 +52,7 @@ export class GridViewModel {
         for(let j = 0; j < nbY; j++) {
             gridLine = new GridLineViewModel(j, nbY, this);
             for(let i = 0; i < nbX; i++) {
-                gridLine.cards.push(new CardViewModel(counter, valuesChunks[j][i], this));
+                gridLine.cards.push(new CardViewModel(counter, valuesChunks[j][i], gridLine));
                 counter++;
             }
             this.gridLines.push(gridLine);

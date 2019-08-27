@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { AppRegistry, Dimensions, Image, StyleSheet, TouchableHighlight, View } from 'react-native';
 import { CardViewModel } from '../src/viewmodel/CardViewModel';
-import { gameState } from '../App';
+import { name as appName } from '../app.json';
 
 export interface CardProps {
 	viewModel: CardViewModel;
@@ -14,9 +14,9 @@ interface State {
 export default class Card extends Component<CardProps, State> {
 
 	constructor(props: CardProps) {
-        super(props);
-
-        props.viewModel.c = this;
+		super(props);
+		
+		props.viewModel.c = this;
 
 		this.state = {
 			viewModel: props.viewModel
@@ -25,7 +25,9 @@ export default class Card extends Component<CardProps, State> {
 
 	get vm() { return this.state.viewModel; }
 
-	update() { this.setState({ viewModel: this.vm }) }
+	update() {
+		this.setState({ viewModel: this.vm });
+	}
 
 	render() {
 		let width = Dimensions.get('window').width;
@@ -43,23 +45,23 @@ export default class Card extends Component<CardProps, State> {
 	// I chosed this method to use the typescript setters, but the best method is to use the setState callback:
 	// https://stackoverflow.com/questions/41278385/setstate-doesnt-update-the-state-immediately/41278440
 	handlePress() {
-        this.vm.imgSource = gameState.imgs[this.vm.value - 1];
+        this.vm.imgSource = this.vm.app.imgs[this.vm.value - 1];
 
-		if (gameState.currentCard == null) {
-            gameState.currentCard = this.vm;
+		if (this.vm.app.currentCard == null) {
+            this.vm.app.currentCard = this.vm;
 		}
 		else if (!this.vm.discovered) {
-			if (gameState.currentCard.value != this.vm.value) {
-                if(!gameState.currentCard.discovered) {
-                    gameState.currentCard.imgSource = gameState.defaultImg;
-                    gameState.currentCard.c.update();
+			if (this.vm.app.currentCard.value != this.vm.value) {
+                if(!this.vm.app.currentCard.discovered) {
+                    this.vm.app.currentCard.imgSource = this.vm.app.defaultImg;
+                    this.vm.app.currentCard.c.update();
                 }
-                gameState.currentCard = this.vm;
+                this.vm.app.currentCard = this.vm;
 			}
-			else if (gameState.currentCard.id != this.vm.id) {
-                gameState.currentCard.discovered = true;
+			else if (this.vm.app.currentCard.id != this.vm.id) {
+                this.vm.app.currentCard.discovered = true;
 				this.vm.discovered = true;
-                gameState.currentCard.c.update();
+                this.vm.app.currentCard.c.update();
 			}
 		}
 		this.update();
@@ -80,4 +82,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-AppRegistry.registerComponent('Memory', () => Card);
+AppRegistry.registerComponent(appName, () => Card);

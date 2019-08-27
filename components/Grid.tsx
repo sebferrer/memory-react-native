@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { AppRegistry, View, StyleSheet } from 'react-native';
 import GridLine from './GridLine';
 import { GridViewModel } from '../src/viewmodel/GridViewModel';
+import { name as appName } from '../app.json';
 
 export interface GridProps {
 	viewModel: GridViewModel;
@@ -13,7 +14,7 @@ interface State {
 
 export default class Grid extends Component<GridProps, State> {
 
-	constructor(props) {
+	constructor(props: GridProps) {
 		super(props);
 
 		props.viewModel.c = this;
@@ -31,7 +32,6 @@ export default class Grid extends Component<GridProps, State> {
 		return (
 			<View style={styles.grid}>
 				{this.vm.gridLines.map((gridLine, key) => {
-					;
 					return (
 						<GridLine
 							key={gridLine.id}
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-AppRegistry.registerComponent('Memory', () => Grid);
+AppRegistry.registerComponent(appName, () => Grid);
